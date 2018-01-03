@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.dzj.api.dao.DzjCategoryMapper">
+  <resultMap id="BaseResultMap" type="com.dzj.api.model.DzjCategory">
+    <id column="dzj_category_id" jdbcType="INTEGER" property="dzj_category_id" />
+    <result column="dzj_category_text" jdbcType="VARCHAR" property="dzj_category_text" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    dzj_category_id, dzj_category_text
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from dzj_category
+    where dzj_category_id = #{dzj_category_id,jdbcType=INTEGER}
+  </select>
+  <select id="selectAll" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from dzj_category
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from dzj_category
+    where dzj_category_id = #{dzj_category_id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.dzj.api.model.DzjCategory">
+    insert into dzj_category (dzj_category_id, dzj_category_text
+      )
+    values (#{dzj_category_id,jdbcType=INTEGER}, #{dzj_category_text,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.dzj.api.model.DzjCategory">
+    insert into dzj_category
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="dzj_category_id != null">
+        dzj_category_id,
+      </if>
+      <if test="dzj_category_text != null">
+        dzj_category_text,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="dzj_category_id != null">
+        #{dzj_category_id,jdbcType=INTEGER},
+      </if>
+      <if test="dzj_category_text != null">
+        #{dzj_category_text,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.dzj.api.model.DzjCategory">
+    update dzj_category
+    <set>
+      <if test="dzj_category_text != null">
+        dzj_category_text = #{dzj_category_text,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where dzj_category_id = #{dzj_category_id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.dzj.api.model.DzjCategory">
+    update dzj_category
+    set dzj_category_text = #{dzj_category_text,jdbcType=VARCHAR}
+    where dzj_category_id = #{dzj_category_id,jdbcType=INTEGER}
+  </update>
+</mapper>

@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.dzj.api.dao.DzjMasterMapper">
+  <resultMap id="BaseResultMap" type="com.dzj.api.model.DzjMaster">
+    <id column="dzj_id" jdbcType="INTEGER" property="dzj_id" />
+    <result column="dzj_category_id" jdbcType="INTEGER" property="dzj_category_id" />
+    <result column="dzj_title_text" jdbcType="VARCHAR" property="dzj_title_text" />
+  </resultMap>
+  <resultMap extends="BaseResultMap" id="ResultMapWithBLOBs" type="com.dzj.api.model.DzjMaster">
+    <result column="dzj_text" jdbcType="LONGVARCHAR" property="dzj_text" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    dzj_id, dzj_category_id, dzj_title_text
+  </sql>
+  <sql id="Blob_Column_List">
+    dzj_text
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="ResultMapWithBLOBs">
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from dzj_master
+    where dzj_id = #{dzj_id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from dzj_master
+    where dzj_id = #{dzj_id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.dzj.api.model.DzjMaster">
+    insert into dzj_master (dzj_id, dzj_category_id, dzj_title_text, 
+      dzj_text)
+    values (#{dzj_id,jdbcType=INTEGER}, #{dzj_category_id,jdbcType=INTEGER}, #{dzj_title_text,jdbcType=VARCHAR}, 
+      #{dzj_text,jdbcType=LONGVARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.dzj.api.model.DzjMaster">
+    insert into dzj_master
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="dzj_id != null">
+        dzj_id,
+      </if>
+      <if test="dzj_category_id != null">
+        dzj_category_id,
+      </if>
+      <if test="dzj_title_text != null">
+        dzj_title_text,
+      </if>
+      <if test="dzj_text != null">
+        dzj_text,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="dzj_id != null">
+        #{dzj_id,jdbcType=INTEGER},
+      </if>
+      <if test="dzj_category_id != null">
+        #{dzj_category_id,jdbcType=INTEGER},
+      </if>
+      <if test="dzj_title_text != null">
+        #{dzj_title_text,jdbcType=VARCHAR},
+      </if>
+      <if test="dzj_text != null">
+        #{dzj_text,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.dzj.api.model.DzjMaster">
+    update dzj_master
+    <set>
+      <if test="dzj_category_id != null">
+        dzj_category_id = #{dzj_category_id,jdbcType=INTEGER},
+      </if>
+      <if test="dzj_title_text != null">
+        dzj_title_text = #{dzj_title_text,jdbcType=VARCHAR},
+      </if>
+      <if test="dzj_text != null">
+        dzj_text = #{dzj_text,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where dzj_id = #{dzj_id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.dzj.api.model.DzjMaster">
+    update dzj_master
+    set dzj_category_id = #{dzj_category_id,jdbcType=INTEGER},
+      dzj_title_text = #{dzj_title_text,jdbcType=VARCHAR},
+      dzj_text = #{dzj_text,jdbcType=LONGVARCHAR}
+    where dzj_id = #{dzj_id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.dzj.api.model.DzjMaster">
+    update dzj_master
+    set dzj_category_id = #{dzj_category_id,jdbcType=INTEGER},
+      dzj_title_text = #{dzj_title_text,jdbcType=VARCHAR}
+    where dzj_id = #{dzj_id,jdbcType=INTEGER}
+  </update>
+</mapper>
